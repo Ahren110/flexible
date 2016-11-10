@@ -4,12 +4,11 @@
 
 ## Update【2016年01月13日】
 
-首先，由衷的感谢@完颜([@SMbey0nd](https://github.com/SMbey0nd)) 帮忙踩了这个坑，回想起iOS从7~8，从8~9，都踩过只至少一个坑，真的也是醉了。
 
-手淘这边的flexible方案临时升级如下：
+ME直播flexible方案临时升级如下：
 
 - 针对OS 9_3的UA，做临时处理，强制`dpr`为`1`，即`scale`也为`1`，虽然牺牲了这些版本上的高清方案，但是也只能这么处理了
-- 这个版本不打算发布到CDN（也不发不到tnpm），所以大家更新的方式，最好手动复制代码内联到`html`中，具体代码可以[点击这里下载](http://www.w3cplus.com/sites/default/files/blogs/2016/1601/flexible.js)
+- 手动复制代码内联到`html`中，具体代码可以[点击这里下载](http://www.w3cplus.com/sites/default/files/blogs/2016/1601/flexible.js)
 
 ## 最新版本
 
@@ -41,10 +40,10 @@
 
 首先，目前视觉稿大小分为`640`，`750`以及，`1125`这三种。
 
-当前方案会把这3类视觉稿分成`100份`来看待（为了以后兼容vh，vw单位）。每一份被称为一个单位a。同时，1rem单位认定为10a。拿750的视觉稿举例：
+1rem单位认定为10a。拿750的视觉稿举例：
 
-    1a = 7.5px
-    1rem = 75px
+
+    1rem =100px
 
 因此，对于视觉稿上的元素的尺寸换算，只需要`原始px值`除以`rem基准px值`即可。例如240px * 120px的元素，最后转换为3.2rem * 1.6rem。
 
@@ -68,13 +67,13 @@
         font-size: 36px;
     }
 
-### 手动配置dpr
+### 手动配置
 
-引入执行js之前，可以通过输出meta标签方式来手动设置dpr。语法如下：
+引入执行js之前，可以通过输出meta标签方式来设置pc端最大宽度，默认为540相随：
 
-    <meta name="flexible" content="initial-dpr=2,maximum-dpr=3" />
+     <meta name="flexible" content="max-width-PC=600,design-width=750" />
 
-其中`initial-dpr`会把dpr强制设置为给定的值，`maximum-dpr`会比较系统的dpr和给定的dpr，取最小值。**注意：这两个参数只能选其一。**
+
 
 ### 手动设置rem基准值的方法
 
@@ -103,64 +102,4 @@
 **lib.flexible.refreshRem()** 
 
 刷新当前页面的rem基准值
-
-## 栅格系统
-
-### 需引入makegrid.js
-   
-    <script src="http://g.tbcdn.cn/mtb/lib-flexible/{{version}}/makegrid.js"></script>
-
-### 使用方法
-
-    lib.flexible.makeGrid(params)
-
-- [Object params]
-    - designWidth - 设计稿宽度
-    - designUnit - 设计稿最小单位a（以px为单位）
-    - columnCount - 栅格列数
-    - columnXUnit - 栅格列宽（以a为单位）
-    - gutterXUnit - 栅格间距（以a为单位）
-    - edgeXUnit - 页面左右边距（以a为单位）
-    - className - 栅格样式的名称（可省略，默认为grid）
-
-通过传入视觉的栅格规范定义，可以输出对应的css样式。
-
-    lib.flexible.makeGridMode(modeName)
-
-- [String modeName]
-
-方案还预置了几个默认的栅格规范，分别是`750-12`，`750-6`，`640-12`，`640-6`。
-
-### 利用meta输出栅格样式
-
-    <meta content="designWidth=750, desginUnit=6, columnCount=12, columnXUnit=7, gutterXUnit=3, edgeXUnit=4" name="grid" />
-
-或
-
-    <meta content="modeName=750-12" name="grid" />
-
-### 栅格代码举例
-
-    <div class="grid">
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-        <div class="col-4"></div>
-    </div>
-
-    <div class="grid">
-        <div class="col-6"></div>
-        <div class="col-6"></div>
-    </div>
-
-    <div class="grid">
-        <div class="col-3"></div>
-        <div class="col-4"></div>
-        <div class="col-5"></div>
-    </div>
-
-
-### 四类栅格在不同手机上的表现
-
-![栅格](grid.jpg)
-
 

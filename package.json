@@ -5,17 +5,13 @@
   "homepage": "http://gitlab.alibaba-inc.com/mtb/lib-flexible",
   "author": [
     {
-      "name": "寒泉",
-      "email": "hanquan.csf@taobao.com"
-    },
-    {
-      "name": "渚薰",
-      "email": "zhuxun.jb@taobao.com"
+      "name": "黄冠华",
+      "email": "86732415@qq.com"
     }
   ],
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:mtb/lib-flexible.git"
+    "url": "https://github.com/kiros1986/flexible.git"
   },
   "licenses": [
     {

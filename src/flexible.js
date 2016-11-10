@@ -5,32 +5,25 @@
     var flexibleEl = doc.querySelector('meta[name="flexible"]');
     var dpr = 0;
     var scale = 0;
+    var designWidth =750; //视觉设计稿宽度
+    var maxWidthPC =540; //PC端最大宽度
     var tid;
     var flexible = lib.flexible || (lib.flexible = {});
     var isAndroid = win.navigator.appVersion.match(/android/gi);
     var isIPhone = win.navigator.appVersion.match(/iphone/gi);
-    var devicePixelRatio = win.devicePixelRatio;
-
-    if (metaEl) {
-        console.warn('将根据已有的meta标签来设置缩放比例');
-        var match = metaEl.getAttribute('content').match(/initial\-scale=([\d\.]+)/);
-        if (match) {
-            scale = parseFloat(match[1]);
-            dpr = parseInt(1 / scale);
-        }
-    } else if (flexibleEl) {
+    var devicePixelRatio = win.devicePixelRatio; 
+   if (flexibleEl) {
         var content = flexibleEl.getAttribute('content');
         if (content) {
-            var initialDpr = content.match(/initial\-dpr=([\d\.]+)/);
-            var maximumDpr = content.match(/maximum\-dpr=([\d\.]+)/);
-            if (initialDpr) {
-                dpr = parseFloat(initialDpr[1]);
-                scale = parseFloat((1 / dpr).toFixed(2));    
+            var mw = content.match(/max\-width\-PC=([\d\.]+)/)[1];
+            var dw = content.match(/design\-width=([\d\.]+)/)[1];
+            if(mw){ //r如果有自定义最大宽度 
+                maxWidthPC = mw;
             }
-            if (maximumDpr) {
-                dpr = parseFloat(maximumDpr[1]);
-                scale = parseFloat((1 / dpr).toFixed(2));    
+            if(dw){ //如果有自定义设计宽度 
+                designWidth = dw
             }
+
         }
     }
 
@@ -69,10 +62,10 @@
     function refreshRem(){
         var width = docEl.getBoundingClientRect().width;
         console.log( !isIPhone )
-        if (!isIPhone && !isAndroid && width > 540 ) {
-            width = 540;
+        if (!isIPhone && !isAndroid && width > maxWidthPC ) {
+            width = maxWidthPC;
         }
-        var rem = width / dpr / 7.5 ;
+        var rem = width / dpr /  (designWidth/100 ) ;
         docEl.style.fontSize = rem + 'px';
         flexible.rem = win.rem = rem;
     }
@@ -88,14 +81,7 @@
         }
     }, false);
 
-    // if (doc.readyState === 'complete') {
-    //     doc.body.style.fontSize = 12  + 'px';
-    // } else {
-    //     doc.addEventListener('DOMContentLoaded', function(e) {
-    //         doc.body.style.fontSize = 12  + 'px';
-    //     }, false);
-    // }
-    
+
 
     refreshRem();
 
