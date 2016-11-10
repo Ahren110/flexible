@@ -11,54 +11,36 @@ module.exports = function(grunt) {
         clean: ['<%= distPath %>/*'],
 
 
-        depconcat: {
-            options: {
-                separator: '\n'
-            },
-            main: {
-                src: ['<%= srcPath %>/<%= name %>.js'],
-                dest: '<%= distPath %>/<%= name %>.min.js'
-            },
-        },
+
 
         uglify: {
             main: {
                 files: [{
                     expand: true,
-                    cwd: '<%= distPath %>',
-                    src: ['*.min.js'],
+                    cwd: '<%= srcPath %>',
+                    src: ['*.js'],
                     dest: '<%= distPath %>',
-                    ext: '.js'
+                    ext: '.min.js'
                 }]
             }
         },
 
-
-
-
-
-
         watch: {
             js: {
                 files: ['<%= srcPath %>/*.js', '<%= srcPath %>/**/*.js'],
-                tasks: ['depconcat', 'uglify']
+                tasks: ['uglify']
             }
         },
 
 
     });
 
-    grunt.loadNpmTasks('grunt-depconcat');
-    grunt.loadNpmTasks('grunt-depcombo');
-    grunt.loadNpmTasks('grunt-css2js');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-less');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dist', ['clean', 'depconcat', 'uglify']);
+    grunt.registerTask('dist', ['clean', 'uglify']);
     grunt.registerTask('dev', ['watch']);
 
     grunt.registerTask('default', ['dist']);

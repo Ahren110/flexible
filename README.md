@@ -8,7 +8,7 @@
 ME直播flexible方案临时升级如下：
 
 - 针对OS 9_3的UA，做临时处理，强制`dpr`为`1`，即`scale`也为`1`，虽然牺牲了这些版本上的高清方案，但是也只能这么处理了
-- 手动复制代码内联到`html`中，具体代码可以[点击这里下载](http://www.w3cplus.com/sites/default/files/blogs/2016/1601/flexible.js)
+- 手动复制代码内联到`html`中，具体代码可以[点击这里下载](https://github.com/kiros1986/flexible/edit/master/build/flexible.js)
 
 ## 最新版本
 
