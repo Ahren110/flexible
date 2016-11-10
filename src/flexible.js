@@ -15,13 +15,13 @@
    if (flexibleEl) {
         var content = flexibleEl.getAttribute('content');
         if (content) {
-            var mw = content.match(/max\-width\-PC=([\d\.]+)/)[1];
-            var dw = content.match(/design\-width=([\d\.]+)/)[1];
+            var mw = content.match(/max\-width\-PC=([\d\.]+)/);
+            var dw = content.match(/design\-width=([\d\.]+)/);
             if(mw){ //r如果有自定义最大宽度 
-                maxWidthPC = mw;
+                maxWidthPC = mw[1];
             }
             if(dw){ //如果有自定义设计宽度 
-                designWidth = dw
+                designWidth = dw[1]
             }
 
         }
